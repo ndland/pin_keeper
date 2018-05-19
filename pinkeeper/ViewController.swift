@@ -19,13 +19,16 @@ class ViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
-    func numberOfVowels(in string: String) -> Int {
-        let vowels: [Character] = ["a", "e", "i", "o", "u",
-                                   "A", "E", "I", "O", "U"]
-
-        return string.reduce(0) {
-            $0 + (vowels.contains($1) ? 1 : 0)
+    
+    func calculateScore(frame: Frame) -> Int {
+        var secondBallNumberOfPins = 0
+        if frame.secondBall == Mark.Spare {
+            secondBallNumberOfPins = 10 - frame.firstBall.rawValue
+        }
+        if let secondBall = frame.secondBall?.rawValue {
+            return frame.firstBall.rawValue + secondBallNumberOfPins
+        } else {
+            return frame.firstBall.rawValue
         }
     }
 }

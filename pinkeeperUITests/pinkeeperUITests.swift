@@ -9,6 +9,8 @@
 import XCTest
 
 class pinkeeperUITests: XCTestCase {
+    
+    var app: XCUIApplication!
         
     override func setUp() {
         super.setUp()
