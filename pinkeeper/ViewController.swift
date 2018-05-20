@@ -9,6 +9,8 @@
 import UIKit
 
 class ViewController: UIViewController {
+    
+    var totalScore: Int = 0
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,16 +22,27 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    func calculateScore(frame: Frame) -> Int {
-        var secondBallNumberOfPins = 0
+    fileprivate func maybeSetSecondBall(frame: Frame) -> Int {
+        if frame.secondBall == nil {
+            return 0
+        }
         if frame.secondBall == Mark.Spare {
-            secondBallNumberOfPins = 10 - frame.firstBall.rawValue
-        }
-        if let secondBall = frame.secondBall?.rawValue {
-            return frame.firstBall.rawValue + secondBallNumberOfPins
+            return 10 - frame.firstBall.rawValue
         } else {
-            return frame.firstBall.rawValue
+            return frame.secondBall!.rawValue
         }
+    }
+    
+    func calculateScore(frames: Array<Frame>) -> Int {
+        for frame in frames {
+            if maybeSetSecondBall(frame: frame) != 0 {
+                totalScore += frame.firstBall.rawValue + maybeSetSecondBall(frame: frame)
+            } else {
+                totalScore += frame.firstBall.rawValue
+            }
+        }
+        
+        return totalScore
     }
 }
 
