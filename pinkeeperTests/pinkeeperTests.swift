@@ -42,8 +42,18 @@ class pinkeeperTests: XCTestCase {
         let frameOne = Frame.init(firstBall: Mark.Two, secondBall: Mark.Two)
         let frameTwo = Frame.init(firstBall: Mark.Two, secondBall: Mark.Two)
         let game = [frameOne, frameTwo]
-        
+    
         XCTAssertEqual(viewController.calculateScore(frames: game), 8,
                        "The total for this game should be 8")
+    }
+    
+    func testThreeFramesYeildCorrectScore() {
+        let frameOne = Frame.init(firstBall: Mark.One, secondBall: Mark.Three)
+        let frameTwo = Frame.init(firstBall: Mark.Four, secondBall: Mark.Five)
+        let frameThree = Frame.init(firstBall: Mark.Zero, secondBall: Mark.Three)
+        let game = [frameOne, frameTwo, frameThree]
+        
+        XCTAssertEqual(viewController.calculateScore(frames: game), 16,
+                       "The total score should equate to 16")
     }
 }
